@@ -30,17 +30,17 @@ public class StateTransferConfig {
             Map<String, StateTransferHandlerFactory> transferHandlerFactories) {
         return new StateTransferHandlerFactoryHolder() {
             @Override
-            public void addStateTransferHandlerFactory(String factoryBeanName, StateTransferHandlerFactory factory) {
+            public void addFactory(String factoryBeanName, StateTransferHandlerFactory factory) {
                 transferHandlerFactories.put(factoryBeanName, factory);
             }
 
             @Override
-            public void removeStateTransferHandlerFactory(String factoryBeanName) {
+            public void removeFactory(String factoryBeanName) {
                 transferHandlerFactories.remove(factoryBeanName);
             }
 
             @Override
-            public List<StateTransferHandlerFactory> getStateTransferHandlerFactories() {
+            public List<StateTransferHandlerFactory> getFactories() {
                 return new ArrayList<>(transferHandlerFactories.values());
             }
 
@@ -48,7 +48,7 @@ public class StateTransferConfig {
             public List<StateTransferHandler> createNewInstances() {
                 List<StateTransferHandler> transferHandlers = new LinkedList<>();
                 for (StateTransferHandlerFactory transferHandlerFactory : transferHandlerFactories.values()) {
-                    transferHandlers.add(transferHandlerFactory.get());
+                    transferHandlers.add(transferHandlerFactory.createInstance());
                 }
 
                 return transferHandlers;

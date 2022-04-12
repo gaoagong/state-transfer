@@ -1,7 +1,8 @@
 package ai.prama.statetransfer.api;
 
-import java.util.function.Supplier;
+@FunctionalInterface
+public interface StateTransferHandlerFactory<H extends StateTransferHandler> {
 
-public interface StateTransferHandlerFactory extends Supplier<StateTransferHandler> {
+    H createInstance();
 
 }

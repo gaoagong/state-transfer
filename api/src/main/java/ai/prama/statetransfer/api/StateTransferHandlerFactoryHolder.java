@@ -7,10 +7,10 @@ import java.util.List;
  */
 public interface StateTransferHandlerFactoryHolder {
 
-    void addStateTransferHandlerFactory(String factoryBeanName, StateTransferHandlerFactory factory);
-    void removeStateTransferHandlerFactory(String factoryBeanName);
+    void addFactory(String factoryBeanName, StateTransferHandlerFactory factory);
+    void removeFactory(String factoryBeanName);
 
-    List<StateTransferHandlerFactory> getStateTransferHandlerFactories();
+    List<StateTransferHandlerFactory> getFactories();
 
     List<StateTransferHandler> createNewInstances();
 
