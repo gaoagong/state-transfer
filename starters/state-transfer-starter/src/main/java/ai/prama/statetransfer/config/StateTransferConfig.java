@@ -5,7 +5,7 @@ import ai.prama.statetransfer.api.StateTransferHandlerFactory;
 import ai.prama.statetransfer.api.StateTransferHandlerFactoryHolder;
 import ai.prama.statetransfer.handlers.AggregatedStateTransferHandler;
 import ai.prama.statetransfer.handlers.MdcStateTransferHandler;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,13 +20,13 @@ import java.util.Map;
 public class StateTransferConfig {
 
     @Bean
-    @ConditionalOnBean(name = "mdcStateTransferHandlerFactory")
+    @ConditionalOnMissingBean(name = "mdcStateTransferHandlerFactory")
     public StateTransferHandlerFactory mdcStateTransferHandlerFactory() {
         return MdcStateTransferHandler::new;
     }
 
     @Bean
-    @ConditionalOnBean
+    @ConditionalOnMissingBean(name = "defaultStateTransferHandlerFactoryHolder")
     public StateTransferHandlerFactoryHolder stateTransferHandlerFactoryHolder(
             Map<String, StateTransferHandlerFactory> transferHandlerFactories) {
         return new StateTransferHandlerFactoryHolder() {
