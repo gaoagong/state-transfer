@@ -3,6 +3,7 @@ package ai.prama.statetransfer.config;
 import ai.prama.statetransfer.api.StateTransferHandler;
 import ai.prama.statetransfer.api.StateTransferHandlerFactory;
 import ai.prama.statetransfer.api.StateTransferHandlerFactoryHolder;
+import ai.prama.statetransfer.handlers.AggregatedStateTransferHandler;
 import ai.prama.statetransfer.handlers.MdcStateTransferHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -52,6 +53,13 @@ public class StateTransferConfig {
                 }
 
                 return transferHandlers;
+            }
+
+            @Override
+            public AggregatedStateTransferHandler createAggregatedHandler() {
+                return new AggregatedStateTransferHandler(
+                    createNewInstances()
+                );
             }
         };
     }

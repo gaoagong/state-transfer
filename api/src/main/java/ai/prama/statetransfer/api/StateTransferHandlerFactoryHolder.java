@@ -1,5 +1,7 @@
 package ai.prama.statetransfer.api;
 
+import ai.prama.statetransfer.handlers.AggregatedStateTransferHandler;
+
 import java.util.List;
 
 /**
@@ -13,5 +15,7 @@ public interface StateTransferHandlerFactoryHolder {
     List<StateTransferHandlerFactory> getFactories();
 
     List<StateTransferHandler> createNewInstances();
+
+    AggregatedStateTransferHandler createAggregatedHandler();
 
 }
